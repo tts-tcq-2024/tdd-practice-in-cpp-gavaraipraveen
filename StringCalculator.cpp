@@ -4,6 +4,8 @@ int add(const std::string& numbers) {
     if (numbers.empty()) {
         return 0;
     }
-    // Additional implementation will go here for other cases
+    if (numbers == "0") {
+        return 0;
+    }
     return 0; // Temporary return for the empty input case
 }

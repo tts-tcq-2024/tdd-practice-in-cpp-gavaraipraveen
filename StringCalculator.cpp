@@ -5,6 +5,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <algorithm>
+#include <regex>
 
 int StringCalculator::add(const std::string& numbers) {
     if (numbers.empty()) {
@@ -30,15 +31,26 @@ int StringCalculator::summation(const std::string& numbers) {
 std::vector<int> StringCalculator::convertToNumber(const std::string& numbers) {
     std::vector<int> numList;
     std::string sanitizedNumbers = numbers;
-    
+    std::string delimiter = ",";
+
+    // Check for custom delimiter
+    if (numbers.substr(0, 2) == "//") {
+        size_t delimiterEnd = numbers.find('\n');
+        delimiter = numbers.substr(2, delimiterEnd - 2);
+        sanitizedNumbers = numbers.substr(delimiterEnd + 1);
+    }
+
     // Replace newline characters with commas to unify the delimiters
     std::replace(sanitizedNumbers.begin(), sanitizedNumbers.end(), '\n', ',');
-    
-    std::stringstream strnum(sanitizedNumbers);
-    std::string num;
 
-    while (std::getline(strnum, num, ',')) {
-        numList.push_back(filterNumber(num));
+    // Use regex to split by either comma or custom delimiter
+    std::string regexPattern = delimiter == "," ? "," : std::regex_escape(delimiter) + "|,";
+    std::regex re(regexPattern);
+    std::sregex_token_iterator it(sanitizedNumbers.begin(), sanitizedNumbers.end(), re, -1);
+    std::sregex_token_iterator end;
+
+    for (; it != end; ++it) {
+        numList.push_back(filterNumber(*it));
     }
 
     return numList;

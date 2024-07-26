@@ -35,21 +35,28 @@ int StringCalculator::summation(const std::string& numbers) {
 }
 
 std::vector<int> StringCalculator::convertToNumber(const std::string& numbers) {
-    std::vector<int> numList;
     std::string sanitizedNumbers = numbers;
-    std::string delimiter = ",";
+    std::string delimiter = extractDelimiter(numbers, sanitizedNumbers);
 
-    // Check for custom delimiter
+    // Replace newline characters with commas to unify the delimiters
+    std::replace(sanitizedNumbers.begin(), sanitizedNumbers.end(), '\n', ',');
+
+    // Split the numbers string using the determined delimiter
+    return splitNumbers(sanitizedNumbers, delimiter);
+}
+
+std::string StringCalculator::extractDelimiter(const std::string& numbers, std::string& sanitizedNumbers) {
+    std::string delimiter = ",";
     if (numbers.substr(0, 2) == "//") {
         size_t delimiterEnd = numbers.find('\n');
         delimiter = numbers.substr(2, delimiterEnd - 2);
         sanitizedNumbers = numbers.substr(delimiterEnd + 1);
     }
+    return delimiter;
+}
 
-    // Replace newline characters with commas to unify the delimiters
-    std::replace(sanitizedNumbers.begin(), sanitizedNumbers.end(), '\n', ',');
-
-    // Use regex to split by either comma or custom delimiter
+std::vector<int> StringCalculator::splitNumbers(const std::string& sanitizedNumbers, const std::string& delimiter) {
+    std::vector<int> numList;
     std::string regexPattern = delimiter == "," ? "," : escapeRegex(delimiter) + "|,";
     std::regex re(regexPattern);
     std::sregex_token_iterator it(sanitizedNumbers.begin(), sanitizedNumbers.end(), re, -1);
@@ -84,7 +91,7 @@ void StringCalculator::throwNegativeNumbersException(const std::vector<int>& neg
     throw std::runtime_error(oss.str());
 }
 
-int StringCalculator::filterNumber(const std::string& numbers) {
-    int num = std::stoi(numbers);
+int StringCalculator::filterNumber(const std::string& numStr) {
+    int num = std::stoi(numStr);
     return num > 1000 ? 0 : num;
 }

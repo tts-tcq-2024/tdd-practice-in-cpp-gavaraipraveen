@@ -18,10 +18,10 @@ int StringCalculator::add(const std::string& numbers) {
 
 std::vector<int> StringCalculator::convertToNumber(const std::string& numbers) {
     std::vector<int> numList;
-    std::stringstream strnum(numbers);
+    std::stringstream ssnumbers(numbers);
     std::string num;
 
-    while (std::getline(strnum, num, ',')) {
+    while (std::getline(ssnumbers, num, ',')) {
         numList.push_back(std::stoi(num));
     }
 

@@ -29,7 +29,7 @@ TEST(StringCalculatorAddTests, ExpectSumForTwoNumbers) {
     ASSERT_EQ(result, expectedresult);
 }
 
-/*
+
 TEST(StringCalculatorAddTests, ExpectExceptionForNegativeNumbers) {
     ASSERT_THROW({
         std::string input = "-1,2";
@@ -37,7 +37,7 @@ TEST(StringCalculatorAddTests, ExpectExceptionForNegativeNumbers) {
        objUnderTest.add(input);
         }, std::runtime_error);
 }
-
+/*
 TEST(StringCalculatorAddTests, ExpectSumWithNewlineDelimiter) {
     int expectedresult = 6;
     std::string input = "1\n2,3";

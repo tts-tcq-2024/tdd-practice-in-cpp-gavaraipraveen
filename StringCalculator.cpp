@@ -32,7 +32,7 @@ std::vector<int> StringCalculator::convertToNumber(const std::string& numbers) {
     std::string num;
 
     while (std::getline(strnum, num, ',')) {
-        numList.push_back(std::stoi(num));
+        numList.push_back(filterNumber(num));
     }
 
     return numList;
@@ -58,4 +58,9 @@ void StringCalculator::throwNegativeNumbersException(const std::vector<int>& neg
         oss << negatives[i];
     }
     throw std::runtime_error(oss.str());
+}
+
+int StringCalculator::filterNumber(const std::string& numbers) {
+    int num = std::stoi(numbers);
+    return num > 1000 ? 0 : num;
 }

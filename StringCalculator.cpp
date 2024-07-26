@@ -9,6 +9,10 @@ int StringCalculator::add(const std::string& numbers) {
     if (numbers.empty()) {
         return 0;
     }
+    return summation(numbers);
+}
+
+int StringCalculator::summation(const std::string& numbers) {
     std::vector<int> numberList = convertToNumber(numbers);
     std::vector<int> negatives = avoidNegativeNumbers(numberList);
 
@@ -19,7 +23,6 @@ int StringCalculator::add(const std::string& numbers) {
     for (int num : numberList) {
         add += num;
     }
-
     return add;
 }
 

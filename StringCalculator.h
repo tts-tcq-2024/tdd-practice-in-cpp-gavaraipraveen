@@ -1,3 +1,6 @@
 #include <string>
 
-int add(const std::string& numbers);
+class StringCalculator {
+public:
+    int add(const std::string& numbers);
+};

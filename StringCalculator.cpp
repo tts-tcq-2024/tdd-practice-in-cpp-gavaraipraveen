@@ -4,6 +4,7 @@
 #include <vector>
 #include <sstream>
 #include <stdexcept>
+#include <algorithm>
 
 int StringCalculator::add(const std::string& numbers) {
     if (numbers.empty()) {

@@ -28,7 +28,12 @@ int StringCalculator::summation(const std::string& numbers) {
 
 std::vector<int> StringCalculator::convertToNumber(const std::string& numbers) {
     std::vector<int> numList;
-    std::stringstream strnum(numbers);
+    std::string sanitizedNumbers = numbers;
+    
+    // Replace newline characters with commas to unify the delimiters
+    std::replace(sanitizedNumbers.begin(), sanitizedNumbers.end(), '\n', ',');
+    
+    std::stringstream strnum(sanitizedNumbers);
     std::string num;
 
     while (std::getline(strnum, num, ',')) {

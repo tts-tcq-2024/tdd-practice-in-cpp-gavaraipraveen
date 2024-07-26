@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
 
 int StringCalculator::add(const std::string& numbers) {
     if (numbers.empty()) {
@@ -18,10 +19,10 @@ int StringCalculator::add(const std::string& numbers) {
 
 std::vector<int> StringCalculator::convertToNumber(const std::string& numbers) {
     std::vector<int> numList;
-    std::stringstream ssnumbers(numbers);
+    std::stringstream strnum(numbers);
     std::string num;
 
-    while (std::getline(ssnumbers, num, ',')) {
+    while (std::getline(strnum, num, ',')) {
         numList.push_back(std::stoi(num));
     }
 

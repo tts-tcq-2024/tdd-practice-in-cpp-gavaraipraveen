@@ -7,6 +7,12 @@
 #include <algorithm>
 #include <regex>
 
+// Helper function to escape special characters for regex
+std::string escapeRegex(const std::string& str) {
+    static const std::regex specialChars{ R"([-[\]{}()*+?.,\^$|#\s])" };
+    return std::regex_replace(str, specialChars, R"(\$&)");
+}
+
 int StringCalculator::add(const std::string& numbers) {
     if (numbers.empty()) {
         return 0;
@@ -44,7 +50,7 @@ std::vector<int> StringCalculator::convertToNumber(const std::string& numbers) {
     std::replace(sanitizedNumbers.begin(), sanitizedNumbers.end(), '\n', ',');
 
     // Use regex to split by either comma or custom delimiter
-    std::string regexPattern = delimiter == "," ? "," : std::regex_escape(delimiter) + "|,";
+    std::string regexPattern = delimiter == "," ? "," : escapeRegex(delimiter) + "|,";
     std::regex re(regexPattern);
     std::sregex_token_iterator it(sanitizedNumbers.begin(), sanitizedNumbers.end(), re, -1);
     std::sregex_token_iterator end;

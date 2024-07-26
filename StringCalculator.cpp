@@ -10,7 +10,7 @@ int StringCalculator::add(const std::string& numbers) {
         return 0;
     }
     std::vector<int> numberList = convertToNumber(numbers);
-    std::vector<int> negatives = filterNegativeNumbers(numberList);
+    std::vector<int> negatives = avoidNegativeNumbers(numberList);
 
     if (!negatives.empty()) {
         throwNegativeNumbersException(negatives);
@@ -43,4 +43,16 @@ std::vector<int> StringCalculator::avoidNegativeNumbers(const std::vector<int>& 
         }
     }
     return negatives;
+}
+
+void StringCalculator::throwNegativeNumbersException(const std::vector<int>& negatives) {
+    std::ostringstream oss;
+    oss << "negatives not allowed: ";
+    for (size_t i = 0; i < negatives.size(); ++i) {
+        if (i > 0) {
+            oss << ", ";
+        }
+        oss << negatives[i];
+    }
+    throw std::runtime_error(oss.str());
 }

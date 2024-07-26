@@ -25,5 +25,5 @@ std::vector<int> StringCalculator::convertToNumber(const std::string& numbers) {
         numList.push_back(std::stoi(num));
     }
 
-    return numList
+    return numList;
 }
